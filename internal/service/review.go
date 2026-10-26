@@ -8,21 +8,21 @@ import (
 )
 
 type ReviewService struct {
-	pb.UnimplementedReviewServer
+	pb.UnimplementedReviewServiceServer
 	uc *biz.ReviewUsecase
 }
 
 func NewReviewService(uc *biz.ReviewUsecase) *ReviewService {
 	return &ReviewService{uc: uc}
 }
-func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateReviewRequest) (*pb.CreateReviewReply, error) {
+func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateReviewRequest) (*pb.CreateReviewResponse, error) {
 	var anonymous int32
 	if request.Anonymous {
 		anonymous = 1
 	}
 	review, err := r.uc.CreateReview(ctx, &model.ReviewInfo{
-		UserID:       request.UserID,
-		OrderID:      request.OrderID,
+		UserID:       request.UserId,
+		OrderID:      request.OrderId,
 		Score:        request.Score,
 		ServiceScore: request.ServiceScore,
 		ExpressScore: request.ExpressScore,
@@ -35,5 +35,5 @@ func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateRevi
 	if err != nil {
 		return nil, err
 	}
-	return &pb.CreateReviewReply{ReviewId: review.ReviewID}, err
+	return &pb.CreateReviewResponse{ReviewId: review.ReviewID}, err
 }

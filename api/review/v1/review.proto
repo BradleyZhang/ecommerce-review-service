@@ -1,29 +1,58 @@
 syntax = "proto3";
+package review.v1;
 
+import "buf/validate/validate.proto";
 import "google/api/annotations.proto";
-package api.review.v1; // TODO
+
 option go_package = "review-service/api/review/v1;v1";
-service Review {
-  rpc CreateReview (CreateReviewRequest) returns (CreateReviewReply){
+service ReviewService {
+  rpc CreateReview(CreateReviewRequest) returns (CreateReviewResponse) {
     option (google.api.http) = {
       post: "/v1/review"
       body: "*"
     };
-  };
+  }
 }
 
 message CreateReviewRequest {
-  int64  userID       = 1;
-  int64  orderID      = 2;
-  int32  score        = 3;
-  int32  serviceScore = 4;
-  int32  expressScore = 5; // 物流打分
-  string content      = 6;
-  string picInfo      = 7;
-  string videoInfo    = 8;
-  bool   anonymous    = 9; // 评价匿名
+  int64 user_id = 1 [(buf.validate.field).int64.gt = 0];
+  int64 order_id = 2 [(buf.validate.field).int64.gt = 0];
+  int32 score = 3 [(buf.validate.field).int32 = {
+    in: [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }];
+  int32 service_score = 4 [(buf.validate.field).int32 = {
+    in: [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }];
+  int32 express_score = 5 [(buf.validate.field).int32 = {
+    in: [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }]; // 物流打分
+  string content = 6 [
+    (buf.validate.field).string.min_len = 8,
+    (buf.validate.field).string.max_len = 255
+  ];
+  string pic_info = 7;
+  string video_info = 8;
+  bool anonymous = 9; // 评价匿名
 }
 
-message CreateReviewReply {
-  int64 reviewId = 1;
+message CreateReviewResponse {
+  int64 review_id = 1;
 }

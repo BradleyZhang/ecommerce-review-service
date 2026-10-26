@@ -24,7 +24,8 @@ func NewHTTPHandler(ctx context.Context) (*runtime.ServeMux, error) {
 	}
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 	grpcServerEndpoint := "localhost:" + strconv.Itoa(common.PortGRPC)
-	err = v1.RegisterReviewHandlerFromEndpoint(ctx, mux, grpcServerEndpoint, opts)
+	err = v1.RegisterReviewServiceHandlerFromEndpoint(ctx, mux, grpcServerEndpoint, opts)
+	// err = v1.RegisterReviewHandlerFromEndpoint(ctx, mux, grpcServerEndpoint, opts)
 	if err != nil {
 		return nil, err
 	}
