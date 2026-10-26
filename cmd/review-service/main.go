@@ -23,7 +23,10 @@ func main() {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
+
 	InitResources()
+
+	// DI
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%v", common.PortGRPC))
 	if err != nil {
 		common.FatalLog("failed to listen: ", err)
@@ -51,7 +54,7 @@ func main() {
 		common.SysLog("reivew service gRPC started,listening on ", common.PortGRPC)
 	}
 
-	{
+	{ // HTTP
 		go func() {
 			mux, err := server.NewHTTPHandler(ctx)
 			if err != nil {

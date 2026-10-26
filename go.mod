@@ -21,7 +21,6 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/exp v0.0.0-20261014143641-f0251eb4aa3e // indirect
 	golang.org/x/mod v0.42.0 // indirect
 	golang.org/x/net v0.61.0 // indirect
@@ -30,14 +29,13 @@ require (
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.52.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8 // indirect
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.6.2 // indirect
 	gorm.io/datatypes v1.2.4 // indirect
 	gorm.io/hints v1.1.0 // indirect
 )
 
-tool (
-	github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
-	github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc
-	google.golang.org/protobuf/cmd/protoc-gen-go
-)
+// tool (
+// 	github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
+// 	github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
+// 	google.golang.org/grpc/cmd/protoc-gen-go-grpc
+// 	google.golang.org/protobuf/cmd/protoc-gen-go
+// )
