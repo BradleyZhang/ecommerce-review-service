@@ -54,30 +54,30 @@ func newReviewAppealInfo(db *gorm.DB, opts ...gen.DOOption) reviewAppealInfo {
 	return _reviewAppealInfo
 }
 
-// reviewAppealInfo è¯„ä»·å•†å®¶ç”³è¯‰è¡¨
+// reviewAppealInfo 评价商家申诉表
 type reviewAppealInfo struct {
 	reviewAppealInfoDo reviewAppealInfoDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ä¸»é”®
-	CreateBy  field.String // åˆ›å»ºæ–¹æ ‡è¯†
-	UpdateBy  field.String // æ›´æ–°æ–¹æ ‡è¯†
-	CreateAt  field.Time   // åˆ›å»ºæ—¶é—´
-	UpdateAt  field.Time   // æ›´æ–°æ—¶é—´
-	DeleteAt  field.Time   // é€»è¾‘åˆ é™¤æ ‡è®°
-	Version   field.Int32  // ä¹è§‚é”æ ‡è®°
-	AppealID  field.Int64  // ç”³è¯‰id
-	ReviewID  field.Int64  // è¯„ä»·id
-	StoreID   field.Int64  // åº—é“ºid
-	Status    field.Int32  // çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30ç”³è¯‰é©³å›ž
-	Reason    field.String // ç”³è¯‰åŽŸå› ç±»åˆ«
-	Content   field.String // ç”³è¯‰å†…å®¹æè¿°
-	PicInfo   field.String // åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡
-	VideoInfo field.String // åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘
-	OpRemarks field.String // è¿è¥å¤‡æ³¨
-	OpUser    field.String // è¿è¥è€…æ ‡è¯†
-	ExtJSON   field.String // ä¿¡æ¯æ‰©å±•
-	CtrlJSON  field.String // æŽ§åˆ¶æ‰©å±•
+	ID        field.Int64  // 主键
+	CreateBy  field.String // 创建方标识
+	UpdateBy  field.String // 更新方标识
+	CreateAt  field.Time   // 创建时间
+	UpdateAt  field.Time   // 更新时间
+	DeleteAt  field.Time   // 逻辑删除标记
+	Version   field.Int32  // 乐观锁标记
+	AppealID  field.Int64  // 申诉id
+	ReviewID  field.Int64  // 评价id
+	StoreID   field.Int64  // 店铺id
+	Status    field.Int32  // 状态：10待审核；20审核通过；30申诉驳回
+	Reason    field.String // 申诉原因类别
+	Content   field.String // 申诉内容描述
+	PicInfo   field.String // 媒体信息：图片
+	VideoInfo field.String // 媒体信息：视频
+	OpRemarks field.String // 运营备注
+	OpUser    field.String // 运营者标识
+	ExtJSON   field.String // 信息扩展
+	CtrlJSON  field.String // 控制扩展
 
 	fieldMap map[string]field.Expr
 }

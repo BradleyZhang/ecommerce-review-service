@@ -10,39 +10,39 @@ import (
 
 const TableNameReviewInfo = "review_info"
 
-// ReviewInfo è¯„ä»·è¡¨
+// ReviewInfo 评价表
 type ReviewInfo struct {
-	ID            int64      `gorm:"column:id;primaryKey;autoIncrement:true;comment:ä¸»é”®" json:"id"`                                                             // ä¸»é”®
-	CreateBy      string     `gorm:"column:create_by;not null;comment:åˆ›å»ºæ–¹æ ‡è¯†" json:"create_by"`                                                           // åˆ›å»ºæ–¹æ ‡è¯†
-	UpdateBy      string     `gorm:"column:update_by;not null;comment:æ›´æ–°æ–¹æ ‡è¯†" json:"update_by"`                                                           // æ›´æ–°æ–¹æ ‡è¯†
-	CreateAt      time.Time  `gorm:"column:create_at;not null;default:CURRENT_TIMESTAMP;comment:åˆ›å»ºæ—¶é—´" json:"create_at"`                                    // åˆ›å»ºæ—¶é—´
-	UpdateAt      time.Time  `gorm:"column:update_at;not null;default:CURRENT_TIMESTAMP;comment:æ›´æ–°æ—¶é—´" json:"update_at"`                                    // æ›´æ–°æ—¶é—´
-	DeleteAt      *time.Time `gorm:"column:delete_at;comment:é€»è¾‘åˆ é™¤æ ‡è®°" json:"delete_at"`                                                                 // é€»è¾‘åˆ é™¤æ ‡è®°
-	Version       int32      `gorm:"column:version;not null;comment:ä¹è§‚é”æ ‡è®°" json:"version"`                                                               // ä¹è§‚é”æ ‡è®°
-	ReviewID      int64      `gorm:"column:review_id;not null;comment:è¯„ä»·id" json:"review_id"`                                                                  // è¯„ä»·id
-	Content       string     `gorm:"column:content;not null;comment:è¯„ä»·å†…å®¹" json:"content"`                                                                  // è¯„ä»·å†…å®¹
-	Score         int32      `gorm:"column:score;not null;comment:è¯„åˆ†" json:"score"`                                                                            // è¯„åˆ†
-	ServiceScore  int32      `gorm:"column:service_score;not null;comment:å•†å®¶æœåŠ¡è¯„åˆ†" json:"service_score"`                                                // å•†å®¶æœåŠ¡è¯„åˆ†
-	ExpressScore  int32      `gorm:"column:express_score;not null;comment:ç‰©æµè¯„åˆ†" json:"express_score"`                                                      // ç‰©æµè¯„åˆ†
-	HasMedia      int32      `gorm:"column:has_media;not null;comment:æ˜¯å¦æœ‰å›¾æˆ–è§†é¢‘" json:"has_media"`                                                     // æ˜¯å¦æœ‰å›¾æˆ–è§†é¢‘
-	OrderID       int64      `gorm:"column:order_id;not null;comment:è®¢å•id" json:"order_id"`                                                                    // è®¢å•id
-	SkuID         int64      `gorm:"column:sku_id;not null;comment:sku id" json:"sku_id"`                                                                          // sku id
-	SpuID         int64      `gorm:"column:spu_id;not null;comment:spu id" json:"spu_id"`                                                                          // spu id
-	StoreID       int64      `gorm:"column:store_id;not null;comment:åº—é“ºid" json:"store_id"`                                                                    // åº—é“ºid
-	UserID        int64      `gorm:"column:user_id;not null;comment:ç”¨æˆ·id" json:"user_id"`                                                                      // ç”¨æˆ·id
-	Anonymous     int32      `gorm:"column:anonymous;not null;comment:æ˜¯å¦åŒ¿å" json:"anonymous"`                                                              // æ˜¯å¦åŒ¿å
-	Tags          string     `gorm:"column:tags;not null;comment:æ ‡ç­¾é›†åˆ" json:"tags"`                                                                        // æ ‡ç­¾é›†åˆ
-	PicInfo       string     `gorm:"column:pic_info;not null;comment:åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡" json:"pic_info"`                                                       // åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡
-	VideoInfo     string     `gorm:"column:video_info;not null;comment:åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘" json:"video_info"`                                                   // åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘
-	Status        int32      `gorm:"column:status;not null;default:10;comment:çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30å®¡æ ¸ä¸é€šè¿‡ï¼›40éšè—" json:"status"` // çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30å®¡æ ¸ä¸é€šè¿‡ï¼›40éšè—
-	IsDefault     int32      `gorm:"column:is_default;not null;comment:æ˜¯å¦é»˜è®¤è¯„ä»·" json:"is_default"`                                                      // æ˜¯å¦é»˜è®¤è¯„ä»·
-	HasReply      int32      `gorm:"column:has_reply;not null;comment:æ˜¯å¦æœ‰å•†å®¶å›žå¤ï¼š0æ— ï¼›1æœ‰" json:"has_reply"`                                       // æ˜¯å¦æœ‰å•†å®¶å›žå¤ï¼š0æ— ï¼›1æœ‰
-	OpReason      string     `gorm:"column:op_reason;not null;comment:è¿è¥å®¡æ ¸é©³å›žåŽŸå›" json:"op_reason"`                                                   // è¿è¥å®¡æ ¸é©³å›žåŽŸå›
-	OpRemarks     string     `gorm:"column:op_remarks;not null;comment:è¿è¥å¤‡æ³¨" json:"op_remarks"`                                                            // è¿è¥å¤‡æ³¨
-	OpUser        string     `gorm:"column:op_user;not null;comment:è¿è¥è€…æ ‡è¯†" json:"op_user"`                                                               // è¿è¥è€…æ ‡è¯†
-	GoodsSnapshot string     `gorm:"column:goods_snapshot;not null;comment:å•†å“å¿«ç…§ä¿¡æ¯" json:"goods_snapshot"`                                              // å•†å“å¿«ç…§ä¿¡æ¯
-	ExtJSON       string     `gorm:"column:ext_json;not null;comment:ä¿¡æ¯æ‰©å±•" json:"ext_json"`                                                                // ä¿¡æ¯æ‰©å±•
-	CtrlJSON      string     `gorm:"column:ctrl_json;not null;comment:æŽ§åˆ¶æ‰©å±•" json:"ctrl_json"`                                                              // æŽ§åˆ¶æ‰©å±•
+	ID            int64      `gorm:"column:id;primaryKey;autoIncrement:true;comment:主键" json:"id"`                         // 主键
+	CreateBy      string     `gorm:"column:create_by;not null;comment:创建方标识" json:"create_by"`                             // 创建方标识
+	UpdateBy      string     `gorm:"column:update_by;not null;comment:更新方标识" json:"update_by"`                             // 更新方标识
+	CreateAt      time.Time  `gorm:"column:create_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"create_at"`    // 创建时间
+	UpdateAt      time.Time  `gorm:"column:update_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"update_at"`    // 更新时间
+	DeleteAt      *time.Time `gorm:"column:delete_at;comment:逻辑删除标记" json:"delete_at"`                                     // 逻辑删除标记
+	Version       int32      `gorm:"column:version;not null;comment:乐观锁标记" json:"version"`                                 // 乐观锁标记
+	ReviewID      int64      `gorm:"column:review_id;not null;comment:评价id" json:"review_id"`                              // 评价id
+	Content       string     `gorm:"column:content;not null;comment:评价内容" json:"content"`                                  // 评价内容
+	Score         int32      `gorm:"column:score;not null;comment:评分" json:"score"`                                        // 评分
+	ServiceScore  int32      `gorm:"column:service_score;not null;comment:商家服务评分" json:"service_score"`                    // 商家服务评分
+	ExpressScore  int32      `gorm:"column:express_score;not null;comment:物流评分" json:"express_score"`                      // 物流评分
+	HasMedia      int32      `gorm:"column:has_media;not null;comment:是否有图或视频" json:"has_media"`                           // 是否有图或视频
+	OrderID       int64      `gorm:"column:order_id;not null;comment:订单id" json:"order_id"`                                // 订单id
+	SkuID         int64      `gorm:"column:sku_id;not null;comment:sku id" json:"sku_id"`                                  // sku id
+	SpuID         int64      `gorm:"column:spu_id;not null;comment:spu id" json:"spu_id"`                                  // spu id
+	StoreID       int64      `gorm:"column:store_id;not null;comment:店铺id" json:"store_id"`                                // 店铺id
+	UserID        int64      `gorm:"column:user_id;not null;comment:用户id" json:"user_id"`                                  // 用户id
+	Anonymous     int32      `gorm:"column:anonymous;not null;comment:是否匿名" json:"anonymous"`                              // 是否匿名
+	Tags          string     `gorm:"column:tags;not null;comment:标签集合" json:"tags"`                                        // 标签集合
+	PicInfo       string     `gorm:"column:pic_info;not null;comment:媒体信息：图片" json:"pic_info"`                             // 媒体信息：图片
+	VideoInfo     string     `gorm:"column:video_info;not null;comment:媒体信息：视频" json:"video_info"`                         // 媒体信息：视频
+	Status        int32      `gorm:"column:status;not null;default:10;comment:状态：10待审核；20审核通过；30审核不通过；40隐藏" json:"status"` // 状态：10待审核；20审核通过；30审核不通过；40隐藏
+	IsDefault     int32      `gorm:"column:is_default;not null;comment:是否默认评价" json:"is_default"`                          // 是否默认评价
+	HasReply      int32      `gorm:"column:has_reply;not null;comment:是否有商家回复：0无；1有" json:"has_reply"`                     // 是否有商家回复：0无；1有
+	OpReason      string     `gorm:"column:op_reason;not null;comment:运营审核驳回原因" json:"op_reason"`                          // 运营审核驳回原因
+	OpRemarks     string     `gorm:"column:op_remarks;not null;comment:运营备注" json:"op_remarks"`                            // 运营备注
+	OpUser        string     `gorm:"column:op_user;not null;comment:运营者标识" json:"op_user"`                                 // 运营者标识
+	GoodsSnapshot string     `gorm:"column:goods_snapshot;not null;comment:商品快照信息" json:"goods_snapshot"`                  // 商品快照信息
+	ExtJSON       string     `gorm:"column:ext_json;not null;comment:信息扩展" json:"ext_json"`                                // 信息扩展
+	CtrlJSON      string     `gorm:"column:ctrl_json;not null;comment:控制扩展" json:"ctrl_json"`                              // 控制扩展
 }
 
 // TableName ReviewInfo's table name

@@ -66,42 +66,42 @@ func newReviewInfo(db *gorm.DB, opts ...gen.DOOption) reviewInfo {
 	return _reviewInfo
 }
 
-// reviewInfo è¯„ä»·è¡¨
+// reviewInfo 评价表
 type reviewInfo struct {
 	reviewInfoDo reviewInfoDo
 
 	ALL           field.Asterisk
-	ID            field.Int64  // ä¸»é”®
-	CreateBy      field.String // åˆ›å»ºæ–¹æ ‡è¯†
-	UpdateBy      field.String // æ›´æ–°æ–¹æ ‡è¯†
-	CreateAt      field.Time   // åˆ›å»ºæ—¶é—´
-	UpdateAt      field.Time   // æ›´æ–°æ—¶é—´
-	DeleteAt      field.Time   // é€»è¾‘åˆ é™¤æ ‡è®°
-	Version       field.Int32  // ä¹è§‚é”æ ‡è®°
-	ReviewID      field.Int64  // è¯„ä»·id
-	Content       field.String // è¯„ä»·å†…å®¹
-	Score         field.Int32  // è¯„åˆ†
-	ServiceScore  field.Int32  // å•†å®¶æœåŠ¡è¯„åˆ†
-	ExpressScore  field.Int32  // ç‰©æµè¯„åˆ†
-	HasMedia      field.Int32  // æ˜¯å¦æœ‰å›¾æˆ–è§†é¢‘
-	OrderID       field.Int64  // è®¢å•id
+	ID            field.Int64  // 主键
+	CreateBy      field.String // 创建方标识
+	UpdateBy      field.String // 更新方标识
+	CreateAt      field.Time   // 创建时间
+	UpdateAt      field.Time   // 更新时间
+	DeleteAt      field.Time   // 逻辑删除标记
+	Version       field.Int32  // 乐观锁标记
+	ReviewID      field.Int64  // 评价id
+	Content       field.String // 评价内容
+	Score         field.Int32  // 评分
+	ServiceScore  field.Int32  // 商家服务评分
+	ExpressScore  field.Int32  // 物流评分
+	HasMedia      field.Int32  // 是否有图或视频
+	OrderID       field.Int64  // 订单id
 	SkuID         field.Int64  // sku id
 	SpuID         field.Int64  // spu id
-	StoreID       field.Int64  // åº—é“ºid
-	UserID        field.Int64  // ç”¨æˆ·id
-	Anonymous     field.Int32  // æ˜¯å¦åŒ¿å
-	Tags          field.String // æ ‡ç­¾é›†åˆ
-	PicInfo       field.String // åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡
-	VideoInfo     field.String // åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘
-	Status        field.Int32  // çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30å®¡æ ¸ä¸é€šè¿‡ï¼›40éšè—
-	IsDefault     field.Int32  // æ˜¯å¦é»˜è®¤è¯„ä»·
-	HasReply      field.Int32  // æ˜¯å¦æœ‰å•†å®¶å›žå¤ï¼š0æ— ï¼›1æœ‰
-	OpReason      field.String // è¿è¥å®¡æ ¸é©³å›žåŽŸå›
-	OpRemarks     field.String // è¿è¥å¤‡æ³¨
-	OpUser        field.String // è¿è¥è€…æ ‡è¯†
-	GoodsSnapshot field.String // å•†å“å¿«ç…§ä¿¡æ¯
-	ExtJSON       field.String // ä¿¡æ¯æ‰©å±•
-	CtrlJSON      field.String // æŽ§åˆ¶æ‰©å±•
+	StoreID       field.Int64  // 店铺id
+	UserID        field.Int64  // 用户id
+	Anonymous     field.Int32  // 是否匿名
+	Tags          field.String // 标签集合
+	PicInfo       field.String // 媒体信息：图片
+	VideoInfo     field.String // 媒体信息：视频
+	Status        field.Int32  // 状态：10待审核；20审核通过；30审核不通过；40隐藏
+	IsDefault     field.Int32  // 是否默认评价
+	HasReply      field.Int32  // 是否有商家回复：0无；1有
+	OpReason      field.String // 运营审核驳回原因
+	OpRemarks     field.String // 运营备注
+	OpUser        field.String // 运营者标识
+	GoodsSnapshot field.String // 商品快照信息
+	ExtJSON       field.String // 信息扩展
+	CtrlJSON      field.String // 控制扩展
 
 	fieldMap map[string]field.Expr
 }

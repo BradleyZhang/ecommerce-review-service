@@ -10,27 +10,27 @@ import (
 
 const TableNameReviewAppealInfo = "review_appeal_info"
 
-// ReviewAppealInfo è¯„ä»·å•†å®¶ç”³è¯‰è¡¨
+// ReviewAppealInfo 评价商家申诉表
 type ReviewAppealInfo struct {
-	ID        int64      `gorm:"column:id;primaryKey;autoIncrement:true;comment:ä¸»é”®" json:"id"`                                               // ä¸»é”®
-	CreateBy  string     `gorm:"column:create_by;not null;comment:åˆ›å»ºæ–¹æ ‡è¯†" json:"create_by"`                                             // åˆ›å»ºæ–¹æ ‡è¯†
-	UpdateBy  string     `gorm:"column:update_by;not null;comment:æ›´æ–°æ–¹æ ‡è¯†" json:"update_by"`                                             // æ›´æ–°æ–¹æ ‡è¯†
-	CreateAt  time.Time  `gorm:"column:create_at;not null;default:CURRENT_TIMESTAMP;comment:åˆ›å»ºæ—¶é—´" json:"create_at"`                      // åˆ›å»ºæ—¶é—´
-	UpdateAt  time.Time  `gorm:"column:update_at;not null;default:CURRENT_TIMESTAMP;comment:æ›´æ–°æ—¶é—´" json:"update_at"`                      // æ›´æ–°æ—¶é—´
-	DeleteAt  *time.Time `gorm:"column:delete_at;comment:é€»è¾‘åˆ é™¤æ ‡è®°" json:"delete_at"`                                                   // é€»è¾‘åˆ é™¤æ ‡è®°
-	Version   int32      `gorm:"column:version;not null;comment:ä¹è§‚é”æ ‡è®°" json:"version"`                                                 // ä¹è§‚é”æ ‡è®°
-	AppealID  int64      `gorm:"column:appeal_id;not null;comment:ç”³è¯‰id" json:"appeal_id"`                                                    // ç”³è¯‰id
-	ReviewID  int64      `gorm:"column:review_id;not null;comment:è¯„ä»·id" json:"review_id"`                                                    // è¯„ä»·id
-	StoreID   int64      `gorm:"column:store_id;not null;comment:åº—é“ºid" json:"store_id"`                                                      // åº—é“ºid
-	Status    int32      `gorm:"column:status;not null;default:10;comment:çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30ç”³è¯‰é©³å›ž" json:"status"` // çŠ¶æ€ï¼š10å¾…å®¡æ ¸ï¼›20å®¡æ ¸é€šè¿‡ï¼›30ç”³è¯‰é©³å›ž
-	Reason    string     `gorm:"column:reason;not null;comment:ç”³è¯‰åŽŸå› ç±»åˆ«" json:"reason"`                                                // ç”³è¯‰åŽŸå› ç±»åˆ«
-	Content   string     `gorm:"column:content;not null;comment:ç”³è¯‰å†…å®¹æè¿°" json:"content"`                                              // ç”³è¯‰å†…å®¹æè¿°
-	PicInfo   string     `gorm:"column:pic_info;not null;comment:åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡" json:"pic_info"`                                         // åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡
-	VideoInfo string     `gorm:"column:video_info;not null;comment:åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘" json:"video_info"`                                     // åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘
-	OpRemarks string     `gorm:"column:op_remarks;not null;comment:è¿è¥å¤‡æ³¨" json:"op_remarks"`                                              // è¿è¥å¤‡æ³¨
-	OpUser    string     `gorm:"column:op_user;not null;comment:è¿è¥è€…æ ‡è¯†" json:"op_user"`                                                 // è¿è¥è€…æ ‡è¯†
-	ExtJSON   string     `gorm:"column:ext_json;not null;comment:ä¿¡æ¯æ‰©å±•" json:"ext_json"`                                                  // ä¿¡æ¯æ‰©å±•
-	CtrlJSON  string     `gorm:"column:ctrl_json;not null;comment:æŽ§åˆ¶æ‰©å±•" json:"ctrl_json"`                                                // æŽ§åˆ¶æ‰©å±•
+	ID        int64      `gorm:"column:id;primaryKey;autoIncrement:true;comment:主键" json:"id"`                      // 主键
+	CreateBy  string     `gorm:"column:create_by;not null;comment:创建方标识" json:"create_by"`                          // 创建方标识
+	UpdateBy  string     `gorm:"column:update_by;not null;comment:更新方标识" json:"update_by"`                          // 更新方标识
+	CreateAt  time.Time  `gorm:"column:create_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"create_at"` // 创建时间
+	UpdateAt  time.Time  `gorm:"column:update_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"update_at"` // 更新时间
+	DeleteAt  *time.Time `gorm:"column:delete_at;comment:逻辑删除标记" json:"delete_at"`                                  // 逻辑删除标记
+	Version   int32      `gorm:"column:version;not null;comment:乐观锁标记" json:"version"`                              // 乐观锁标记
+	AppealID  int64      `gorm:"column:appeal_id;not null;comment:申诉id" json:"appeal_id"`                           // 申诉id
+	ReviewID  int64      `gorm:"column:review_id;not null;comment:评价id" json:"review_id"`                           // 评价id
+	StoreID   int64      `gorm:"column:store_id;not null;comment:店铺id" json:"store_id"`                             // 店铺id
+	Status    int32      `gorm:"column:status;not null;default:10;comment:状态：10待审核；20审核通过；30申诉驳回" json:"status"`    // 状态：10待审核；20审核通过；30申诉驳回
+	Reason    string     `gorm:"column:reason;not null;comment:申诉原因类别" json:"reason"`                               // 申诉原因类别
+	Content   string     `gorm:"column:content;not null;comment:申诉内容描述" json:"content"`                             // 申诉内容描述
+	PicInfo   string     `gorm:"column:pic_info;not null;comment:媒体信息：图片" json:"pic_info"`                          // 媒体信息：图片
+	VideoInfo string     `gorm:"column:video_info;not null;comment:媒体信息：视频" json:"video_info"`                      // 媒体信息：视频
+	OpRemarks string     `gorm:"column:op_remarks;not null;comment:运营备注" json:"op_remarks"`                         // 运营备注
+	OpUser    string     `gorm:"column:op_user;not null;comment:运营者标识" json:"op_user"`                              // 运营者标识
+	ExtJSON   string     `gorm:"column:ext_json;not null;comment:信息扩展" json:"ext_json"`                             // 信息扩展
+	CtrlJSON  string     `gorm:"column:ctrl_json;not null;comment:控制扩展" json:"ctrl_json"`                           // 控制扩展
 }
 
 // TableName ReviewAppealInfo's table name

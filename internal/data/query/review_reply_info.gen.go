@@ -50,26 +50,26 @@ func newReviewReplyInfo(db *gorm.DB, opts ...gen.DOOption) reviewReplyInfo {
 	return _reviewReplyInfo
 }
 
-// reviewReplyInfo è¯„ä»·å•†å®¶å›žå¤è¡¨
+// reviewReplyInfo 评价商家回复表
 type reviewReplyInfo struct {
 	reviewReplyInfoDo reviewReplyInfoDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ä¸»é”®
-	CreateBy  field.String // åˆ›å»ºæ–¹æ ‡è¯†
-	UpdateBy  field.String // æ›´æ–°æ–¹æ ‡è¯†
-	CreateAt  field.Time   // åˆ›å»ºæ—¶é—´
-	UpdateAt  field.Time   // æ›´æ–°æ—¶é—´
-	DeleteAt  field.Time   // é€»è¾‘åˆ é™¤æ ‡è®°
-	Version   field.Int32  // ä¹è§‚é”æ ‡è®°
-	ReplyID   field.Int64  // å›žå¤id
-	ReviewID  field.Int64  // è¯„ä»·id
-	StoreID   field.Int64  // åº—é“ºid
-	Content   field.String // è¯„ä»·å†…å®¹
-	PicInfo   field.String // åª’ä½“ä¿¡æ¯ï¼šå›¾ç‰‡
-	VideoInfo field.String // åª’ä½“ä¿¡æ¯ï¼šè§†é¢‘
-	ExtJSON   field.String // ä¿¡æ¯æ‰©å±•
-	CtrlJSON  field.String // æŽ§åˆ¶æ‰©å±•
+	ID        field.Int64  // 主键
+	CreateBy  field.String // 创建方标识
+	UpdateBy  field.String // 更新方标识
+	CreateAt  field.Time   // 创建时间
+	UpdateAt  field.Time   // 更新时间
+	DeleteAt  field.Time   // 逻辑删除标记
+	Version   field.Int32  // 乐观锁标记
+	ReplyID   field.Int64  // 回复id
+	ReviewID  field.Int64  // 评价id
+	StoreID   field.Int64  // 店铺id
+	Content   field.String // 评价内容
+	PicInfo   field.String // 媒体信息：图片
+	VideoInfo field.String // 媒体信息：视频
+	ExtJSON   field.String // 信息扩展
+	CtrlJSON  field.String // 控制扩展
 
 	fieldMap map[string]field.Expr
 }
