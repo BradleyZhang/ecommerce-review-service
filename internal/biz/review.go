@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"review-service/common"
+	"review-service/gerr"
 	"review-service/internal/data/model"
 	"review-service/pkg/snowflake"
 )
@@ -33,7 +34,7 @@ func (r *ReviewUsecase) CreateReview(ctx context.Context, review *model.ReviewIn
 		return nil, errors.New("查询数据库失败")
 	}
 	if len(reviews) > 0 {
-		return nil, fmt.Errorf("订单:%d 已评价", review.OrderID)
+		return nil, gerr.OrderReviewedErr(fmt.Sprintf("订单 %d 已评价", review.OrderID))
 	}
 	// 生成review ID
 	review.ReviewID = snowflake.GenID()

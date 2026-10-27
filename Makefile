@@ -17,6 +17,7 @@ api:
 	@buf generate
 gen:
 	@go run ./cmd/gen
+	@go generate ./...
 
 build:gen api
 	@mkdir -p bin/ && go build -o ./bin/ ./...
