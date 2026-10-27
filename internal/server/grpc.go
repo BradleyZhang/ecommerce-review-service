@@ -1,7 +1,7 @@
 package server
 
 import (
-	v1 "review-service/api/review/v1"
+	pb "review-service/api/review/v1"
 	"review-service/common"
 
 	"buf.build/go/protovalidate"
@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func NewGRPCServer(srv v1.ReviewServiceServer) *grpc.Server {
+func NewGRPCServer(srv pb.ReviewServiceServer) *grpc.Server {
 	var opts []grpc.ServerOption
 	validator, err := protovalidate.New()
 	if err != nil {
@@ -18,6 +18,6 @@ func NewGRPCServer(srv v1.ReviewServiceServer) *grpc.Server {
 	interceptor := protovalidate_middleware.UnaryServerInterceptor(validator)
 	opts = append(opts, grpc.UnaryInterceptor(interceptor))
 	grpcServer := grpc.NewServer(opts...)
-	v1.RegisterReviewServiceServer(grpcServer, srv)
+	pb.RegisterReviewServiceServer(grpcServer, srv)
 	return grpcServer
 }

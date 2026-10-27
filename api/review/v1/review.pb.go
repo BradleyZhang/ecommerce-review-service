@@ -33,7 +33,8 @@ type CreateReviewRequest struct {
 	Content       string                 `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty"`
 	PicInfo       string                 `protobuf:"bytes,7,opt,name=pic_info,json=picInfo,proto3" json:"pic_info,omitempty"`
 	VideoInfo     string                 `protobuf:"bytes,8,opt,name=video_info,json=videoInfo,proto3" json:"video_info,omitempty"`
-	Anonymous     bool                   `protobuf:"varint,9,opt,name=anonymous,proto3" json:"anonymous,omitempty"` // 评价匿名
+	StoreId       int64                  `protobuf:"varint,9,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
+	Anonymous     bool                   `protobuf:"varint,10,opt,name=anonymous,proto3" json:"anonymous,omitempty"` // 评价匿名
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -122,6 +123,13 @@ func (x *CreateReviewRequest) GetVideoInfo() string {
 		return x.VideoInfo
 	}
 	return ""
+}
+
+func (x *CreateReviewRequest) GetStoreId() int64 {
+	if x != nil {
+		return x.StoreId
+	}
+	return 0
 }
 
 func (x *CreateReviewRequest) GetAnonymous() bool {
@@ -513,7 +521,7 @@ func (x *AuditReviewResponse) GetStatus() int32 {
 }
 
 // 回复评价的请求
-type ResponseReviewRequest struct {
+type ReplyReviewRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ReviewId      int64                  `protobuf:"varint,1,opt,name=review_id,json=reviewId,proto3" json:"review_id,omitempty"`
 	StoreId       int64                  `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
@@ -524,20 +532,20 @@ type ResponseReviewRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResponseReviewRequest) Reset() {
-	*x = ResponseReviewRequest{}
+func (x *ReplyReviewRequest) Reset() {
+	*x = ReplyReviewRequest{}
 	mi := &file_review_v1_review_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ResponseReviewRequest) String() string {
+func (x *ReplyReviewRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ResponseReviewRequest) ProtoMessage() {}
+func (*ReplyReviewRequest) ProtoMessage() {}
 
-func (x *ResponseReviewRequest) ProtoReflect() protoreflect.Message {
+func (x *ReplyReviewRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_review_v1_review_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -549,40 +557,40 @@ func (x *ResponseReviewRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ResponseReviewRequest.ProtoReflect.Descriptor instead.
-func (*ResponseReviewRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReplyReviewRequest.ProtoReflect.Descriptor instead.
+func (*ReplyReviewRequest) Descriptor() ([]byte, []int) {
 	return file_review_v1_review_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *ResponseReviewRequest) GetReviewId() int64 {
+func (x *ReplyReviewRequest) GetReviewId() int64 {
 	if x != nil {
 		return x.ReviewId
 	}
 	return 0
 }
 
-func (x *ResponseReviewRequest) GetStoreId() int64 {
+func (x *ReplyReviewRequest) GetStoreId() int64 {
 	if x != nil {
 		return x.StoreId
 	}
 	return 0
 }
 
-func (x *ResponseReviewRequest) GetContent() string {
+func (x *ReplyReviewRequest) GetContent() string {
 	if x != nil {
 		return x.Content
 	}
 	return ""
 }
 
-func (x *ResponseReviewRequest) GetPicInfo() string {
+func (x *ReplyReviewRequest) GetPicInfo() string {
 	if x != nil {
 		return x.PicInfo
 	}
 	return ""
 }
 
-func (x *ResponseReviewRequest) GetVideoInfo() string {
+func (x *ReplyReviewRequest) GetVideoInfo() string {
 	if x != nil {
 		return x.VideoInfo
 	}
@@ -590,27 +598,27 @@ func (x *ResponseReviewRequest) GetVideoInfo() string {
 }
 
 // 回复评价的返回值
-type ResponseReviewResponse struct {
+type ReplyReviewResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ResponseId    int64                  `protobuf:"varint,1,opt,name=response_id,json=responseId,proto3" json:"response_id,omitempty"`
+	ReplyId       int64                  `protobuf:"varint,1,opt,name=reply_id,json=replyId,proto3" json:"reply_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResponseReviewResponse) Reset() {
-	*x = ResponseReviewResponse{}
+func (x *ReplyReviewResponse) Reset() {
+	*x = ReplyReviewResponse{}
 	mi := &file_review_v1_review_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ResponseReviewResponse) String() string {
+func (x *ReplyReviewResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ResponseReviewResponse) ProtoMessage() {}
+func (*ReplyReviewResponse) ProtoMessage() {}
 
-func (x *ResponseReviewResponse) ProtoReflect() protoreflect.Message {
+func (x *ReplyReviewResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_review_v1_review_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -622,14 +630,14 @@ func (x *ResponseReviewResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ResponseReviewResponse.ProtoReflect.Descriptor instead.
-func (*ResponseReviewResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReplyReviewResponse.ProtoReflect.Descriptor instead.
+func (*ReplyReviewResponse) Descriptor() ([]byte, []int) {
 	return file_review_v1_review_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *ResponseReviewResponse) GetResponseId() int64 {
+func (x *ReplyReviewResponse) GetReplyId() int64 {
 	if x != nil {
-		return x.ResponseId
+		return x.ReplyId
 	}
 	return 0
 }
@@ -972,7 +980,7 @@ var File_review_v1_review_proto protoreflect.FileDescriptor
 
 const file_review_v1_review_proto_rawDesc = "" +
 	"\n" +
-	"\x16review/v1/review.proto\x12\treview.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\"\xec\x02\n" +
+	"\x16review/v1/review.proto\x12\treview.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\"\x87\x03\n" +
 	"\x13CreateReviewRequest\x12 \n" +
 	"\auser_id\x18\x01 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\x06userId\x12\"\n" +
 	"\border_id\x18\x02 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\aorderId\x12%\n" +
@@ -986,8 +994,10 @@ const file_review_v1_review_proto_rawDesc = "" +
 	"\xbaH\ar\x05\x10\b\x18\xff\x01R\acontent\x12\x19\n" +
 	"\bpic_info\x18\a \x01(\tR\apicInfo\x12\x1d\n" +
 	"\n" +
-	"video_info\x18\b \x01(\tR\tvideoInfo\x12\x1c\n" +
-	"\tanonymous\x18\t \x01(\bR\tanonymous\"3\n" +
+	"video_info\x18\b \x01(\tR\tvideoInfo\x12\x19\n" +
+	"\bstore_id\x18\t \x01(\x03R\astoreId\x12\x1c\n" +
+	"\tanonymous\x18\n" +
+	" \x01(\bR\tanonymous\"3\n" +
 	"\x14CreateReviewResponse\x12\x1b\n" +
 	"\treview_id\x18\x01 \x01(\x03R\breviewId\"8\n" +
 	"\x10GetReviewRequest\x12$\n" +
@@ -1018,18 +1028,17 @@ const file_review_v1_review_proto_rawDesc = "" +
 	"\v_op_remarks\"J\n" +
 	"\x13AuditReviewResponse\x12\x1b\n" +
 	"\treview_id\x18\x01 \x01(\x03R\breviewId\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\x05R\x06status\"\xc1\x01\n" +
-	"\x15ResponseReviewRequest\x12$\n" +
-	"\treview_id\x18\x01 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\breviewId\x12\"\n" +
+	"\x06status\x18\x02 \x01(\x05R\x06status\"\xbe\x01\n" +
+	"\x12ReplyReviewRequest\x12$\n" +
+	"\treview_id\x18\x01 \x01(\x03B\a\xbaH\x04\"\x02(\x00R\breviewId\x12\"\n" +
 	"\bstore_id\x18\x02 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\astoreId\x12$\n" +
 	"\acontent\x18\x03 \x01(\tB\n" +
 	"\xbaH\ar\x05\x10\x02\x18\xc8\x01R\acontent\x12\x19\n" +
 	"\bpic_info\x18\x04 \x01(\tR\apicInfo\x12\x1d\n" +
 	"\n" +
-	"video_info\x18\x05 \x01(\tR\tvideoInfo\"9\n" +
-	"\x16ResponseReviewResponse\x12\x1f\n" +
-	"\vresponse_id\x18\x01 \x01(\x03R\n" +
-	"responseId\"\xe3\x01\n" +
+	"video_info\x18\x05 \x01(\tR\tvideoInfo\"0\n" +
+	"\x13ReplyReviewResponse\x12\x19\n" +
+	"\breply_id\x18\x01 \x01(\x03R\areplyId\"\xe3\x01\n" +
 	"\x13AppealReviewRequest\x12$\n" +
 	"\treview_id\x18\x01 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\breviewId\x12\"\n" +
 	"\bstore_id\x18\x02 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\astoreId\x12\"\n" +
@@ -1054,13 +1063,13 @@ const file_review_v1_review_proto_rawDesc = "" +
 	"\x19ListReviewByUserIDRequest\x12 \n" +
 	"\auser_id\x18\x01 \x01(\x03B\a\xbaH\x04\"\x02 \x00R\x06userId\"G\n" +
 	"\x1aListReviewByUserIDResponse\x12)\n" +
-	"\x04list\x18\x01 \x03(\v2\x15.review.v1.ReviewInfoR\x04list2\x9e\x06\n" +
+	"\x04list\x18\x01 \x03(\v2\x15.review.v1.ReviewInfoR\x04list2\x92\x06\n" +
 	"\rReviewService\x12f\n" +
 	"\fCreateReview\x12\x1e.review.v1.CreateReviewRequest\x1a\x1f.review.v1.CreateReviewResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
 	"/v1/review\x12f\n" +
 	"\tGetReview\x12\x1b.review.v1.GetReviewRequest\x1a\x1c.review.v1.GetReviewResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/v1/review/{review_id}\x12i\n" +
-	"\vAuditReview\x12\x1d.review.v1.AuditReviewRequest\x1a\x1e.review.v1.AuditReviewResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/review/audit\x12u\n" +
-	"\x0eResponseReview\x12 .review.v1.ResponseReviewRequest\x1a!.review.v1.ResponseReviewResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/v1/review/response\x12m\n" +
+	"\vAuditReview\x12\x1d.review.v1.AuditReviewRequest\x1a\x1e.review.v1.AuditReviewResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/review/audit\x12i\n" +
+	"\vReplyReview\x12\x1d.review.v1.ReplyReviewRequest\x1a\x1e.review.v1.ReplyReviewResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/review/reply\x12m\n" +
 	"\fAppealReview\x12\x1e.review.v1.AppealReviewRequest\x1a\x1f.review.v1.AppealReviewResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/review/appeal\x12i\n" +
 	"\vAuditAppeal\x12\x1d.review.v1.AuditAppealRequest\x1a\x1e.review.v1.AuditAppealResponse\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/appeal/audit\x12\x80\x01\n" +
 	"\x12ListReviewByUserID\x12$.review.v1.ListReviewByUserIDRequest\x1a%.review.v1.ListReviewByUserIDResponse\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/v1/{user_id}/reviewsB!Z\x1freview-service/api/review/v1;v1b\x06proto3"
@@ -1086,8 +1095,8 @@ var file_review_v1_review_proto_goTypes = []any{
 	(*ReviewInfo)(nil),                 // 4: review.v1.ReviewInfo
 	(*AuditReviewRequest)(nil),         // 5: review.v1.AuditReviewRequest
 	(*AuditReviewResponse)(nil),        // 6: review.v1.AuditReviewResponse
-	(*ResponseReviewRequest)(nil),      // 7: review.v1.ResponseReviewRequest
-	(*ResponseReviewResponse)(nil),     // 8: review.v1.ResponseReviewResponse
+	(*ReplyReviewRequest)(nil),         // 7: review.v1.ReplyReviewRequest
+	(*ReplyReviewResponse)(nil),        // 8: review.v1.ReplyReviewResponse
 	(*AppealReviewRequest)(nil),        // 9: review.v1.AppealReviewRequest
 	(*AppealReviewResponse)(nil),       // 10: review.v1.AppealReviewResponse
 	(*AuditAppealRequest)(nil),         // 11: review.v1.AuditAppealRequest
@@ -1101,14 +1110,14 @@ var file_review_v1_review_proto_depIdxs = []int32{
 	0,  // 2: review.v1.ReviewService.CreateReview:input_type -> review.v1.CreateReviewRequest
 	2,  // 3: review.v1.ReviewService.GetReview:input_type -> review.v1.GetReviewRequest
 	5,  // 4: review.v1.ReviewService.AuditReview:input_type -> review.v1.AuditReviewRequest
-	7,  // 5: review.v1.ReviewService.ResponseReview:input_type -> review.v1.ResponseReviewRequest
+	7,  // 5: review.v1.ReviewService.ReplyReview:input_type -> review.v1.ReplyReviewRequest
 	9,  // 6: review.v1.ReviewService.AppealReview:input_type -> review.v1.AppealReviewRequest
 	11, // 7: review.v1.ReviewService.AuditAppeal:input_type -> review.v1.AuditAppealRequest
 	13, // 8: review.v1.ReviewService.ListReviewByUserID:input_type -> review.v1.ListReviewByUserIDRequest
 	1,  // 9: review.v1.ReviewService.CreateReview:output_type -> review.v1.CreateReviewResponse
 	3,  // 10: review.v1.ReviewService.GetReview:output_type -> review.v1.GetReviewResponse
 	6,  // 11: review.v1.ReviewService.AuditReview:output_type -> review.v1.AuditReviewResponse
-	8,  // 12: review.v1.ReviewService.ResponseReview:output_type -> review.v1.ResponseReviewResponse
+	8,  // 12: review.v1.ReviewService.ReplyReview:output_type -> review.v1.ReplyReviewResponse
 	10, // 13: review.v1.ReviewService.AppealReview:output_type -> review.v1.AppealReviewResponse
 	12, // 14: review.v1.ReviewService.AuditAppeal:output_type -> review.v1.AuditAppealResponse
 	14, // 15: review.v1.ReviewService.ListReviewByUserID:output_type -> review.v1.ListReviewByUserIDResponse

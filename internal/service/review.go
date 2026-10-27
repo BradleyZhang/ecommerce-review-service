@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	pb "review-service/api/review/v1"
+	"review-service/common"
 	"review-service/internal/biz"
 	"review-service/internal/data/model"
 )
@@ -15,6 +16,8 @@ type ReviewService struct {
 func NewReviewService(uc *biz.ReviewUsecase) *ReviewService {
 	return &ReviewService{uc: uc}
 }
+
+// C端创建评价
 func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateReviewRequest) (*pb.CreateReviewResponse, error) {
 	var anonymous int32
 	if request.Anonymous {
@@ -30,6 +33,7 @@ func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateRevi
 		PicInfo:      request.PicInfo,
 		VideoInfo:    request.VideoInfo,
 		Anonymous:    anonymous,
+		StoreID:      request.StoreId,
 		Status:       0,
 	})
 	if err != nil {
@@ -37,3 +41,45 @@ func (r *ReviewService) CreateReview(ctx context.Context, request *pb.CreateRevi
 	}
 	return &pb.CreateReviewResponse{ReviewId: review.ReviewID}, err
 }
+
+// // C端获取评价详情
+// func (r *ReviewService) GetReview(context.Context, *pb.GetReviewRequest) (*pb.GetReviewResponse, error) {
+// 	panic("unimpl")
+// }
+
+// // O端审核评价
+// func (r *ReviewService) AuditReview(context.Context, *pb.AuditReviewRequest) (*pb.AuditReviewResponse, error) {
+// 	panic("unimpl")
+// }
+
+// B端回复评价
+func (r *ReviewService) ReplyReview(ctx context.Context, request *pb.ReplyReviewRequest) (*pb.ReplyReviewResponse, error) {
+	common.DebugLogf("[service] ResponseReview req:%v", request)
+	param := &biz.ReplyParam{
+		ReviewID:  request.ReviewId,
+		StoreID:   request.StoreId,
+		Content:   request.Content,
+		PicInfo:   request.PicInfo,
+		VideoInfo: request.VideoInfo,
+	}
+	reply, err := r.uc.CreateReply(ctx, param)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.ReplyReviewResponse{ReplyId: reply.ReplyID}, nil
+}
+
+// // B端申诉评价
+// func (r *ReviewService) AppealReview(context.Context, *pb.AppealReviewRequest) (*pb.AppealReviewResponse, error) {
+// 	panic("unimpl")
+// }
+
+// // O端评价申诉审核
+// func (r *ReviewService) AuditAppeal(context.Context, *pb.AuditAppealRequest) (*pb.AuditAppealResponse, error) {
+// 	panic("unimpl")
+// }
+
+// // C端查看userID下所有评价
+// func (r *ReviewService) ListReviewByUserID(context.Context, *pb.ListReviewByUserIDRequest) (*pb.ListReviewByUserIDResponse, error) {
+// 	panic("unimpl")
+// }

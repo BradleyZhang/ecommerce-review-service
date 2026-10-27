@@ -20,7 +20,13 @@ type ReasonCode struct {
 	Code   codes.Code
 }
 
-var (
-	OrderReviewed = ReasonCode{"ORDER_REVIEWED", C}
-	DBFailed      = ReasonCode{"DB_FAILED", S}
+var ( // 通用
+	InvalidArgument = ReasonCode{"ERR_INVALIDE_ARGUMENT", C}
+	DBFailed        = ReasonCode{"ERR_DB_FAILED", S}
+	AccessDenied    = ReasonCode{"ACCESS_DENIED", PD}
+)
+
+var ( // 业务
+	OrderReviewed  = ReasonCode{"ERR_ORDER_REVIEWED", C}
+	DuplicateReply = ReasonCode{"DUPLICATE_REPLY", C}
 )

@@ -25,9 +25,9 @@ service ReviewService {
     };
   }
   // B端回复评价
-  rpc ResponseReview(ResponseReviewRequest) returns (ResponseReviewResponse) {
+  rpc ReplyReview(ReplyReviewRequest) returns (ReplyReviewResponse) {
     option (google.api.http) = {
-      post: "/v1/review/response"
+      post: "/v1/review/reply"
       body: "*"
     };
   }
@@ -87,7 +87,8 @@ message CreateReviewRequest {
   ];
   string pic_info = 7;
   string video_info = 8;
-  bool anonymous = 9; // 评价匿名
+  int64 store_id = 9;
+  bool anonymous = 10; // 评价匿名
 }
 
 message CreateReviewResponse {
@@ -134,8 +135,8 @@ message AuditReviewResponse {
 }
 
 // 回复评价的请求
-message ResponseReviewRequest {
-  int64 review_id = 1 [(buf.validate.field).int64.gt = 0];
+message ReplyReviewRequest {
+  int64 review_id = 1 [(buf.validate.field).int64.gte = 0];
   int64 store_id = 2 [(buf.validate.field).int64.gt = 0];
   string content = 3 [(buf.validate.field).string = {
     min_len: 2
@@ -146,8 +147,8 @@ message ResponseReviewRequest {
 }
 
 // 回复评价的返回值
-message ResponseReviewResponse {
-  int64 response_id = 1;
+message ReplyReviewResponse {
+  int64 reply_id = 1;
 }
 
 // AppealReviewRequest 申诉评价的请求参数

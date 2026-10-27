@@ -2,10 +2,22 @@
 
 package gerr
 
-func OrderReviewedErr(msg string) error {
-	return NewGRPCError(OrderReviewed.Code, msg, OrderReviewed.Reason)
+func InvalidArgumentErr(msg string) error {
+	return NewGRPCError(InvalidArgument.Code, msg, InvalidArgument.Reason)
 }
 
 func DBFailedErr(msg string) error {
 	return NewGRPCError(DBFailed.Code, msg, DBFailed.Reason)
+}
+
+func AccessDeniedErr(msg string) error {
+	return NewGRPCError(AccessDenied.Code, msg, AccessDenied.Reason)
+}
+
+func OrderReviewedErr(msg string) error {
+	return NewGRPCError(OrderReviewed.Code, msg, OrderReviewed.Reason)
+}
+
+func DuplicateReplyErr(msg string) error {
+	return NewGRPCError(DuplicateReply.Code, msg, DuplicateReply.Reason)
 }
