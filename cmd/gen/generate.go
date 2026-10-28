@@ -3,7 +3,6 @@ package main
 // gorm gen configure
 
 import (
-	"fmt"
 	"review-service/common"
 	"review-service/internal/data/model"
 
@@ -16,7 +15,7 @@ import (
 func connectDB(dsn string) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dsn))
 	if err != nil {
-		panic(fmt.Errorf("connect db fail: %w", err))
+		common.FatalLog("failed to connected database,err:", err)
 	}
 	return db
 }
