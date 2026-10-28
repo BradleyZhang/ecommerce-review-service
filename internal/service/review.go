@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	pb "review-service/api/review/v1"
+	pb "review-service/api/gen/go/review/v1"
 	"review-service/common"
 	"review-service/internal/biz"
 	"review-service/internal/data/model"

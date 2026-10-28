@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 	"net/http"
-	v1 "review-service/api/review/v1"
+	v1 "review-service/api/gen/go/review/v1"
 	"review-service/common"
 	"strconv"
 

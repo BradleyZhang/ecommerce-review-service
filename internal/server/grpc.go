@@ -1,7 +1,7 @@
 package server
 
 import (
-	pb "review-service/api/review/v1"
+	pb "review-service/api/gen/go/review/v1"
 	"review-service/common"
 
 	"buf.build/go/protovalidate"
