@@ -1,0 +1,532 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "review/v1/review.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ReviewService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/appeal/audit": {
+      "post": {
+        "summary": "O端评价申诉审核",
+        "operationId": "ReviewService_AuditAppeal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AuditAppealResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AuditAppealRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/review": {
+      "post": {
+        "summary": "C端创建评价",
+        "operationId": "ReviewService_CreateReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateReviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateReviewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/review/appeal": {
+      "post": {
+        "summary": "B端申诉评价",
+        "operationId": "ReviewService_AppealReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AppealReviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AppealReviewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/review/audit": {
+      "post": {
+        "summary": "O端审核评价",
+        "operationId": "ReviewService_AuditReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AuditReviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AuditReviewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/review/reply": {
+      "post": {
+        "summary": "B端回复评价",
+        "operationId": "ReviewService_ReplyReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReplyReviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReplyReviewRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/review/{review_id}": {
+      "get": {
+        "summary": "C端获取评价详情",
+        "operationId": "ReviewService_GetReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetReviewResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    },
+    "/v1/{user_id}/reviews": {
+      "get": {
+        "summary": "C端查看userID下所有评价",
+        "operationId": "ReviewService_ListReviewByUserID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListReviewByUserIDResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ReviewService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AppealReviewRequest": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "store_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "pic_info": {
+          "type": "string"
+        },
+        "video_info": {
+          "type": "string"
+        }
+      },
+      "title": "AppealReviewRequest 申诉评价的请求参数"
+    },
+    "v1AppealReviewResponse": {
+      "type": "object",
+      "properties": {
+        "appeal_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "对评价进行申诉的返回值"
+    },
+    "v1AuditAppealRequest": {
+      "type": "object",
+      "properties": {
+        "appeal_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "op_user": {
+          "type": "string"
+        },
+        "op_remarks": {
+          "type": "string"
+        }
+      },
+      "title": "对申诉进行审核的请求"
+    },
+    "v1AuditAppealResponse": {
+      "type": "object",
+      "properties": {
+        "appeal_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "对申诉进行审核的返回值"
+    },
+    "v1AuditReviewRequest": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "op_user": {
+          "type": "string"
+        },
+        "op_reason": {
+          "type": "string"
+        },
+        "op_remarks": {
+          "type": "string"
+        }
+      },
+      "title": "审核评价的请求"
+    },
+    "v1AuditReviewResponse": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "审核评价的返回值"
+    },
+    "v1CreateReviewRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "order_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "service_score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "express_score": {
+          "type": "integer",
+          "format": "int32",
+          "title": "物流打分"
+        },
+        "content": {
+          "type": "string"
+        },
+        "pic_info": {
+          "type": "string"
+        },
+        "video_info": {
+          "type": "string"
+        },
+        "store_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "anonymous": {
+          "type": "boolean",
+          "title": "评价匿名"
+        }
+      }
+    },
+    "v1CreateReviewResponse": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetReviewResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/v1ReviewInfo"
+        }
+      },
+      "title": "获取评价详情的响应"
+    },
+    "v1ListReviewByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ReviewInfo"
+          }
+        }
+      },
+      "title": "用户评价列表的返回值"
+    },
+    "v1ReplyReviewRequest": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "store_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        },
+        "pic_info": {
+          "type": "string"
+        },
+        "video_info": {
+          "type": "string"
+        }
+      },
+      "title": "回复评价的请求"
+    },
+    "v1ReplyReviewResponse": {
+      "type": "object",
+      "properties": {
+        "reply_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "回复评价的返回值"
+    },
+    "v1ReviewInfo": {
+      "type": "object",
+      "properties": {
+        "review_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "order_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "service_score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "express_score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "string"
+        },
+        "pic_info": {
+          "type": "string"
+        },
+        "video_info": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "评价信息"
+    }
+  }
+}
