@@ -13,6 +13,7 @@ import (
 	"github.com/BradleyZhang/ecommerce-review-service/common"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/biz"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/data"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/registory"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/server"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/service"
 	"github.com/BradleyZhang/ecommerce-review-service/pkg/snowflake"
@@ -28,7 +29,7 @@ func main() {
 	InitResources()
 
 	// DI
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%v", common.PortGRPC))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%v", common.PortGRPC))
 	if err != nil {
 		common.FatalLog("failed to listen: ", err)
 	}
@@ -39,12 +40,20 @@ func main() {
 	d, cleanup, err := data.NewData(db, common.SysLogger)
 	defer cleanup()
 	if err != nil {
-		common.FatalLog("Data 初始化失败", err)
+		common.FatalLog("Data 初始化失败:", err)
 	}
 	repo := data.NewReviewRepo(d, common.SysLogger)
 	uc := biz.NewReviewUsecase(repo)
 	srv := service.NewReviewService(uc)
-	grpcServer := server.NewGRPCServer(srv)
+	grpcServer, err := server.NewGRPCServer(srv)
+	if err != nil {
+		common.FatalLog("gPRC Server 初始化失败: ", err)
+	}
+
+	registery, err := registory.NewClient(registory.DefaultConfig())
+	if err != nil {
+		common.FatalLog("Registery 初始化失败:", err)
+	}
 	{ // gRPC
 		go func() {
 			err = grpcServer.Serve(lis)
@@ -53,6 +62,10 @@ func main() {
 			}
 		}()
 		common.SysLog("reivew service gRPC started,listening on ", common.PortGRPC)
+		err = registery.Register()
+		if err != nil {
+			common.FatalLog("服务注册失败:", err)
+		}
 	}
 
 	{ // HTTP
@@ -68,10 +81,18 @@ func main() {
 		}()
 		common.SysLog("review service http started ,listening on ", common.Port)
 	}
+
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	sig := <-quit
 	common.SysLog("received signal: ", sig, " shutting down...")
+
+	{ // shut down
+		if err := registery.Deregister(); err != nil {
+			common.ErrorLogf("deregister failed: %v", err)
+		}
+		grpcServer.GracefulStop()
+	}
 }
 func InitResources() {
 	err := godotenv.Load(".env")

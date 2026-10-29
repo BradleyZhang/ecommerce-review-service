@@ -11,6 +11,7 @@ grpc-gateway
 
 生成 CRUD 操作代码 go-gorm/gen 
 
+服务注册/服务发现 consul
 ## Use
 ### Docker
 ```bash

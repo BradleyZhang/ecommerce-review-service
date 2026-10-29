@@ -11,6 +11,9 @@ var SysLogger = log.New(os.Stdout, "\n[SYS] ", log.LstdFlags)
 func SysLog(v ...any) {
 	SysLogger.Print(v...)
 }
+func SysLogf(format string, v ...any) {
+	SysLogger.Printf(format, v...)
+}
 
 var ErrLogger = log.New(os.Stdout, "\n[ERR] ", log.LstdFlags|log.Llongfile)
 
