@@ -6,6 +6,7 @@ import (
 	"review-service/common"
 	"review-service/internal/data/model"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
@@ -21,6 +22,11 @@ func connectDB(dsn string) *gorm.DB {
 }
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		common.FatalLog(".env not found")
+	}
+	common.InitEnv()
 	// 指定生成代码的具体相对目录(相对当前文件)，默认为：./query
 	// 默认生成需要使用WithContext之后才可以查询的代码，但可以通过设置gen.WithoutContext禁用该模式
 	g := gen.NewGenerator(gen.Config{

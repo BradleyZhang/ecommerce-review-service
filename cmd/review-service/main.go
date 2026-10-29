@@ -75,7 +75,8 @@ func main() {
 func InitResources() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		common.FatalLog(err)
+		common.SysLog("No .env file found,useing default environment variables.If needed, please create a .env file and set the relevent variables.")
+		// common.FatalLog(err)
 	}
 	common.InitEnv()
 	err = snowflake.Init(common.StartTime, int64(common.MachineID))

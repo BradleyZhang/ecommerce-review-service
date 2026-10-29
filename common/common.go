@@ -6,7 +6,7 @@ import (
 
 var (
 	PortGRPC = *flag.Int("port", 9090, "the listening port")
-	Port     = 8081
+	Port     = 8080
 )
 var (
 	DebugMode = false

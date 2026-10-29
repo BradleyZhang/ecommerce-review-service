@@ -1,0 +1,51 @@
+#Usage:
+#   1. docker compose -f docker-compose.dev.yml up -d
+
+# Rebuild after Go code changes
+#   docker compose -f docker-compose.dev.yml up -d --build review-service
+
+services:
+  review-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # image: review-service-dev:local
+    container_name: review-service-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    # volumes:
+      # - dev_data:/data
+    environment:
+      - DSN=root:root1234@tcp(mysql:3306)/review?charset=utf8mb4&parseTime=True
+      - MACHINE_ID=1 # 不同机器需要不同 ID
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.2
+    container_name: mysql-review
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: review
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - dev_mysql_data:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+  #    ports:
+  #      - "3306:3306"
+
+
+volumes:
+  # dev_data:  
+  dev_mysql_data:
+
+
