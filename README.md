@@ -20,6 +20,7 @@ $ docker compose -f docker-compose.dev.yml up -d
 ### Make
 导入 db.sql 到 MySQL
 ```bash
+$ git submodule update --init --recursive
 $ cp .env.example .env
 $ nano .env
 $ make dev
