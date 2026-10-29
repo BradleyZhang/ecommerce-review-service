@@ -4,8 +4,9 @@ import (
 	"io"
 	"log"
 	"os"
-	"review-service/common"
-	"review-service/internal/data/query"
+
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/query"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

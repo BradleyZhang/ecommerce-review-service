@@ -18,7 +18,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"review-service/internal/data/model"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/model"
 )
 
 func newReviewAppealInfo(db *gorm.DB, opts ...gen.DOOption) reviewAppealInfo {

@@ -3,9 +3,10 @@ package server
 import (
 	"context"
 	"net/http"
-	v1 "review-service/api/gen/go/review/v1"
-	"review-service/common"
 	"strconv"
+
+	v1 "github.com/BradleyZhang/ecommerce-review-service/api/gen/go/review/v1"
+	"github.com/BradleyZhang/ecommerce-review-service/common"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

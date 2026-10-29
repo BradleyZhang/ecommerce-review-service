@@ -1,8 +1,8 @@
 package server
 
 import (
-	pb "review-service/api/gen/go/review/v1"
-	"review-service/common"
+	pb "github.com/BradleyZhang/ecommerce-review-service/api/gen/go/review/v1"
+	"github.com/BradleyZhang/ecommerce-review-service/common"
 
 	"buf.build/go/protovalidate"
 	protovalidate_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/protovalidate"

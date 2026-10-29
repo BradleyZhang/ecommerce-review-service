@@ -1,7 +1,7 @@
 package gerr
 
 import (
-	"review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/common"
 
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"

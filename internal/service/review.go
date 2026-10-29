@@ -2,10 +2,11 @@ package service
 
 import (
 	"context"
-	pb "review-service/api/gen/go/review/v1"
-	"review-service/common"
-	"review-service/internal/biz"
-	"review-service/internal/data/model"
+
+	pb "github.com/BradleyZhang/ecommerce-review-service/api/gen/go/review/v1"
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/biz"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/model"
 )
 
 type ReviewService struct {

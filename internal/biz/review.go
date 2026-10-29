@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"review-service/common"
-	"review-service/gerr"
-	"review-service/internal/data/model"
-	"review-service/pkg/snowflake"
+
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/gerr"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/model"
+	"github.com/BradleyZhang/ecommerce-review-service/pkg/snowflake"
 )
 
 type ReviewRepo interface {

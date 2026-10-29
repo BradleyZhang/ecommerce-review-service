@@ -1,4 +1,4 @@
-module review-service
+module github.com/BradleyZhang/ecommerce-review-service
 
 go 1.26.1
 

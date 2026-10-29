@@ -3,8 +3,8 @@ package main
 // gorm gen configure
 
 import (
-	"review-service/common"
-	"review-service/internal/data/model"
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/model"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"

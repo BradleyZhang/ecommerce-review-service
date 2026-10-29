@@ -3,11 +3,12 @@ package data
 import (
 	"context"
 	"log"
-	"review-service/common"
-	"review-service/gerr"
-	"review-service/internal/biz"
-	"review-service/internal/data/model"
-	"review-service/internal/data/query"
+
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/gerr"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/biz"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/model"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data/query"
 )
 
 type ReviewRepo struct {

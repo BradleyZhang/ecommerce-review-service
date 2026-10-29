@@ -7,14 +7,15 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"review-service/common"
-	"review-service/internal/biz"
-	"review-service/internal/data"
-	"review-service/internal/server"
-	"review-service/internal/service"
-	"review-service/pkg/snowflake"
 	"strconv"
 	"syscall"
+
+	"github.com/BradleyZhang/ecommerce-review-service/common"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/biz"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/data"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/server"
+	"github.com/BradleyZhang/ecommerce-review-service/internal/service"
+	"github.com/BradleyZhang/ecommerce-review-service/pkg/snowflake"
 
 	"github.com/joho/godotenv"
 )
