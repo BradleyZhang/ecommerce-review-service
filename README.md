@@ -4,7 +4,11 @@ Ecommerce Review Service
 ---
 ## 技术栈
 参数校验 bufbuild/protovalidate 
-gRPC 生成 REST api grpc-ecosystem/grpc-gateway 
+
+gRPC 生成 REST api grpc-ecosystem/
+
+grpc-gateway 
+
 生成 CRUD 操作代码 go-gorm/gen 
 
 ## Use
