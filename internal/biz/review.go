@@ -71,7 +71,7 @@ func (r *ReviewUsecase) CreateReply(ctx context.Context, param *ReplyParam) (*mo
 		ReviewID:  param.ReviewID,
 		StoreID:   param.StoreID,
 		Content:   param.Content,
-		PicInfo:   param.Content,
+		PicInfo:   param.PicInfo,
 		VideoInfo: param.VideoInfo,
 	}
 	return r.repo.SaveReply(ctx, reply)
