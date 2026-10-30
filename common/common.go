@@ -12,7 +12,9 @@ var (
 //===== 下面的从 .env 更新 =====
 
 var (
-	PortGRPC = *flag.Int("port", 9090, "the listening port")
+	portGRPC = flag.Int("grpcPort", 9090, "the gRPC listening port")
+	PortGRPC = 9090
+	port     = flag.Int("port", 8080, "the http listening port")
 	Port     = 8080
 	IP       = "127.0.0.1"
 )
@@ -26,6 +28,9 @@ var (
 )
 
 func initCommonEnv() {
+	flag.Parse()
+	PortGRPC = *portGRPC
+	Port = *port
 	{
 		PortGRPC = GetEnvOrDefault("PORT_GRPC", PortGRPC)
 		Port = GetEnvOrDefault("PORT", Port)
