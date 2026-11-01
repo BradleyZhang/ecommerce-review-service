@@ -10,6 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/sync/singleflight"
+
 	"github.com/BradleyZhang/ecommerce-review-service/common"
 	"github.com/BradleyZhang/ecommerce-review-service/gerr"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/biz"
@@ -17,6 +19,7 @@ import (
 	"github.com/BradleyZhang/ecommerce-review-service/internal/data/query"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/esdsl"
 	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -103,7 +106,8 @@ func (r *ReviewRepo) GetReviewReply(ctx context.Context, reviewID int64) (*model
 // ListReviewByUserID implements [biz.ReviewRepo].
 func (r *ReviewRepo) ListReviewByUserID(ctx context.Context, userID int64, offset int, limit int) ([]*model.ReviewInfo, error) {
 	common.DebugLogf("[data ListReviewByUserID] userID:%v offset:%v limit:%v", userID, offset, limit)
-	data, err := r.esGetReviewByField(ctx, offset, limit, "user_id", strconv.FormatInt(userID, 10))
+	data, err := r.getReviewByFieldSingleFlignt(ctx, offset, limit, "user_id", strconv.FormatInt(userID, 10))
+	// data, err := r.esGetReviewByField(ctx, offset, limit, "user_id", strconv.FormatInt(userID, 10))
 	if err != nil {
 		return nil, fmt.Errorf("es get review err:%w", err)
 	}
@@ -155,6 +159,40 @@ func (r *ReviewRepo) SaveReview(ctx context.Context, review *model.ReviewInfo) (
 		return nil, gerr.DBFailedErr(err.Error())
 	}
 	return review, nil
+}
+
+var g = new(singleflight.Group)
+
+func (r *ReviewRepo) getReviewByFieldSingleFlignt(ctx context.Context, offset, limit int, field, value string) ([]byte, error) {
+	key := fmt.Sprintf("review:%s:%s:%d:%d", field, value, offset, limit)
+	v, err, _ := g.Do(key, func() (any, error) {
+		// 查缓存
+		data, err := r.getBytesFromCache(ctx, key)
+		if err == nil {
+			return data, nil
+		}
+		if errors.Is(err, redis.Nil) { // 未命中, 查 es 更新缓存
+			data, err := r.esGetReviewByField(ctx, offset, limit, field, value)
+			if err == nil {
+				return data, r.setCache(ctx, key, data)
+			} else { // 查es失败
+				return nil, err
+			}
+		}
+		// 查缓存失败
+		return nil, err
+	})
+	if err != nil {
+		return nil, err
+	}
+	return v.([]byte), nil
+}
+
+func (r *ReviewRepo) getBytesFromCache(ctx context.Context, key string) ([]byte, error) {
+	return r.data.rdb.Get(ctx, key).Bytes()
+}
+func (r *ReviewRepo) setCache(ctx context.Context, key string, data []byte) error {
+	return r.data.rdb.Set(ctx, key, data, time.Second*10).Err()
 }
 func (r *ReviewRepo) esGetReviewByField(ctx context.Context, offset, limit int, field, value string) ([]byte, error) {
 	common.DebugLogf("[data esGetReviewByField] field:%v value: %v offset:%v limit:%v", field, value, offset, limit)

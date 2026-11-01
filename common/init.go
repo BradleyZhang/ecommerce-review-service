@@ -5,4 +5,5 @@ func InitEnv() {
 	initDBEnv()
 	initConsulEnv()
 	initESEnv()
+	initRedisEnv()
 }

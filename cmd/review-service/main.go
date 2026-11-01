@@ -41,8 +41,11 @@ func main() {
 	if err != nil {
 		common.FatalLog("连接 es 失败: ", err)
 	}
-	d, cleanup, err := data.NewData(db, es, common.SysLogger)
-	defer cleanup()
+	rdb, err := data.NewRedisCli(data.NewRedisConfigDefault())
+	if err != nil {
+		common.FatalLog("redis 连接失败", err)
+	}
+	d, cleanup, err := data.NewData(db, es, rdb, common.SysLogger)
 	if err != nil {
 		common.FatalLog("Data 初始化失败:", err)
 	}
@@ -96,6 +99,7 @@ func main() {
 			common.ErrorLogf("deregister failed: %v", err)
 		}
 		grpcServer.GracefulStop()
+		cleanup(ctx)
 	}
 }
 func InitResources() {
