@@ -21,3 +21,7 @@ func OrderReviewedErr(msg string) error {
 func DuplicateReplyErr(msg string) error {
 	return NewGRPCError(DuplicateReply.Code, msg, DuplicateReply.Reason)
 }
+
+func DuplicateAppealErr(msg string) error {
+	return NewGRPCError(DuplicateAppeal.Code, msg, DuplicateAppeal.Reason)
+}

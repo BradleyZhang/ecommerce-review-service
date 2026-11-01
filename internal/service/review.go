@@ -80,7 +80,31 @@ func (r *ReviewService) ReplyReview(ctx context.Context, request *pb.ReplyReview
 // 	panic("unimpl")
 // }
 
-// // C端查看userID下所有评价
-// func (r *ReviewService) ListReviewByUserID(context.Context, *pb.ListReviewByUserIDRequest) (*pb.ListReviewByUserIDResponse, error) {
+// C端查看userID下所有评价
+func (r *ReviewService) ListReviewByUserID(ctx context.Context, req *pb.ListReviewByUserIDRequest) (*pb.ListReviewByUserIDResponse, error) {
+	common.DebugLogf("[service] ListReviewByUserID req:%v", req)
+	reviewList, err := r.uc.ListReviewByUserID(ctx, req.UserId, int(req.Offset), int(req.Limit))
+	if err != nil {
+		return nil, err
+	}
+	list := make([]*pb.ReviewInfo, 0, len(reviewList))
+	for _, review := range reviewList {
+		list = append(list, &pb.ReviewInfo{
+			ReviewId:     review.ReviewID,
+			UserId:       req.UserId,
+			OrderId:      review.OrderID,
+			Score:        review.Score,
+			ServiceScore: review.ServiceScore,
+			ExpressScore: review.ExpressScore,
+			Content:      review.Content,
+			PicInfo:      review.PicInfo,
+			VideoInfo:    review.VideoInfo,
+			Status:       review.Status,
+		})
+	}
+	return &pb.ListReviewByUserIDResponse{List: list}, nil
+}
+
+// func (r *ReviewService) ListReviewByStoreID(context.Context, *pb.ListReviewByStoreIDRequest) (*pb.ListReviewByStoreIDResponse, error) {
 // 	panic("unimpl")
 // }

@@ -8,6 +8,7 @@ import (
 	"github.com/BradleyZhang/ecommerce-review-service/common"
 	"github.com/BradleyZhang/ecommerce-review-service/internal/data/query"
 
+	es "github.com/elastic/go-elasticsearch/v9"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -16,14 +17,15 @@ import (
 type Data struct {
 	query  *query.Query
 	logger *log.Logger // log *log.Helper
+	es     *es.TypedClient
 }
 
-func NewData(db *gorm.DB, logger *log.Logger) (*Data, func(), error) {
+func NewData(db *gorm.DB, es *es.TypedClient, logger *log.Logger) (*Data, func(), error) {
 	cleanup := func() {
 		logger.Println("closing the data resources")
 	}
 	query.SetDefault(db)
-	return &Data{query: query.Q, logger: logger}, cleanup, nil
+	return &Data{query: query.Q, logger: logger, es: es}, cleanup, nil
 
 }
 
@@ -45,4 +47,31 @@ func newGormLogger(w io.Writer) logger.Interface {
 		ParameterizedQueries:      !common.DebugMode,
 		Colorful:                  true,
 	})
+}
+
+type ESCfg struct {
+	Addresses []string
+	Apikey    string
+}
+
+func NewESClient(cfg ESCfg) (*es.TypedClient, error) {
+	var opts []es.Option
+	opts = append(opts,
+		es.WithAddresses(cfg.Addresses...),
+		es.WithAPIKey(cfg.Apikey),
+	)
+
+	client, err := es.NewTyped(opts...)
+	if err != nil {
+		return nil, err
+	}
+	common.SysLogf("connect to es with address: %v", cfg.Addresses)
+	common.DebugLogf("[job] NewESClient cfg:%v", cfg)
+	return client, nil
+}
+func NewESDefaultCfg() ESCfg {
+	return ESCfg{
+		Addresses: common.ESAddresses,
+		Apikey:    common.ESAPIKey,
+	}
 }

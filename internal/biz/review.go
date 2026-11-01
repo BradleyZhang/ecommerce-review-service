@@ -15,7 +15,14 @@ type ReviewRepo interface {
 	SaveReview(ctx context.Context, review *model.ReviewInfo) (*model.ReviewInfo, error)
 	GetReviewByOrderID(ctx context.Context, orderID int64) ([]*model.ReviewInfo, error)
 	GetReview(ctx context.Context, reviewID int64) (*model.ReviewInfo, error)
+	ListReviewByUserID(ctx context.Context, userID int64, offset, limit int) ([]*model.ReviewInfo, error)
+
 	SaveReply(ctx context.Context, reply *model.ReviewReplyInfo) (*model.ReviewReplyInfo, error)
+	GetReviewReply(ctx context.Context, reviewID int64) (*model.ReviewReplyInfo, error)
+	AppealReview(ctx context.Context, param *AppealParam) (*model.ReviewAppealInfo, error)
+
+	AuditAppeal(ctx context.Context, param *AuditAppealParam) error
+	AuditReview(ctx context.Context, param *AuditParam) error
 }
 type ReviewUsecase struct {
 	repo ReviewRepo
@@ -49,6 +56,21 @@ func (r *ReviewUsecase) CreateReview(ctx context.Context, review *model.ReviewIn
 		return nil, err
 	}
 	return review, nil
+}
+func (uc *ReviewUsecase) ListReviewByUserID(ctx context.Context, userID int64, offset, limit int) ([]*model.ReviewInfo, error) {
+	common.DebugLogf("[biz] ListReviewByUserID userID:%v offset %v limit %v", userID, offset, limit)
+	if offset <= 0 {
+		offset = 0
+	}
+	if limit <= 0 || limit > 50 {
+		limit = 30
+	}
+	return uc.repo.ListReviewByUserID(ctx, userID, offset, limit)
+}
+
+func (uc *ReviewUsecase) GetReview(ctx context.Context, reviewID int64) (*model.ReviewInfo, error) {
+	common.DebugLogf("[biz GetReview reviewID]")
+	return uc.repo.GetReview(ctx, reviewID)
 }
 func (r *ReviewUsecase) CreateReply(ctx context.Context, param *ReplyParam) (*model.ReviewReplyInfo, error) {
 	common.DebugLogf("[biz] CreateReply param:%v", param)

@@ -12,10 +12,10 @@ var (
 //===== 下面的从 .env 更新 =====
 
 var (
-	portGRPC = flag.Int("grpcPort", 9090, "the gRPC listening port")
-	PortGRPC = 9090
-	port     = flag.Int("port", 8080, "the http listening port")
-	Port     = 8080
+	portGRPC = flag.Int("grpcPort", 9095, "the gRPC listening port")
+	PortGRPC = 9095
+	port     = flag.Int("port", 8085, "the http listening port")
+	Port     = 8085
 	IP       = "127.0.0.1"
 )
 var (

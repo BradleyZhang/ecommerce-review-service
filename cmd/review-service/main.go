@@ -37,7 +37,11 @@ func main() {
 	if err != nil {
 		common.FatalLog("数据库连接失败:", err)
 	}
-	d, cleanup, err := data.NewData(db, common.SysLogger)
+	es, err := data.NewESClient(data.NewESDefaultCfg())
+	if err != nil {
+		common.FatalLog("连接 es 失败: ", err)
+	}
+	d, cleanup, err := data.NewData(db, es, common.SysLogger)
 	defer cleanup()
 	if err != nil {
 		common.FatalLog("Data 初始化失败:", err)

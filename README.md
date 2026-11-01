@@ -24,3 +24,11 @@ $ cp .env.example .env
 $ nano .env
 $ make dev
 ```
+
+canal
+```bash
+$ nano Makefile # 修改 canal 操作
+$ chmod +x ./run-canal.sh
+$ make canal
+```
+

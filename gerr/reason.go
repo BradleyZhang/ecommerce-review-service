@@ -27,6 +27,7 @@ var ( // 通用
 )
 
 var ( // 业务
-	OrderReviewed  = ReasonCode{"ERR_ORDER_REVIEWED", C}
-	DuplicateReply = ReasonCode{"DUPLICATE_REPLY", C}
+	OrderReviewed   = ReasonCode{"ERR_ORDER_REVIEWED", C}
+	DuplicateReply  = ReasonCode{"DUPLICATE_REPLY", C}
+	DuplicateAppeal = ReasonCode{"DUPLICATE_APPEAL", C}
 )

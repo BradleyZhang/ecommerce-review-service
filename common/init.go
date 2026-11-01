@@ -4,4 +4,5 @@ func InitEnv() {
 	initCommonEnv()
 	initDBEnv()
 	initConsulEnv()
+	initESEnv()
 }
