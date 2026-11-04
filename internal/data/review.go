@@ -211,7 +211,7 @@ func (r *ReviewRepo) esGetReviewByField(ctx context.Context, offset, limit int, 
 		).
 		Do(ctx)
 
-	common.DebugLogf("[data esGetReviewByField] es resp:%+v", *resp)
+	common.DebugLogf("[data esGetReviewByField] es resp:%+v", resp)
 	if err != nil {
 		return nil, err
 	}
